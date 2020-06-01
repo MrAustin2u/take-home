@@ -1,102 +1,121 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import Board from "./components/Board";
 import "./App.css";
 
-export default function App() {
-  const [boardSize, setBoardSize] = useState("");
-  const [pieceColor, setPieceColor] = useState("red");
-  const [pieceShape, setPieceShape] = useState("player1");
-  const onSubmit = (e) => {
-    e.preventDefault();
+
+class App extends Component {
+  state = {
+    boardSize: "",
+    player1: "",
+    player2: ""
+  }
+
+
+  setBoard = (e) => {
+    e.preventDefault()
+    this.setState({ boardSize: e.target.value })
   };
+  changeColor = (e) => {
+    e.preventDefault()
+    let player = e.target.name
+    let color = e.target.value
+    //Conditional state setting so that players can never have the same piece color
+    if (player === "player1" && color === "red") this.setState({ player1: "red", player2: "black" })
+    else if (player === "player1" && color === "black") this.setState({ player1: "black", player2: "red" })
+    else if (player === "player2" && color === "red") this.setState({ player1: "black", player2: "red" })
+    else if (player === "player2" && color === "black") this.setState({ player1: "red", player2: "black" })
+  }
 
-  return (
-    <div className="App">
-      {/* INPUT N X N BOARD SIZE */}
-      <form onSubmit={onSubmit}>
-        <label action="#" for="checkerboard">
-          CHOOSE BOARD SIZE
+
+
+  render() {
+    const { boardSize, player1, player2 } = this.state;
+    return (
+      <React.Fragment>
+
+        <div className="App">
+          <br />
+          {/* INPUT N X N BOARD SIZE */}
+          <form>
+            <label htmlFor="checkerboard">
+              CHOOSE BOARD SIZE
         </label>
-        <input
-          type="text"
-          id="checkerboard"
-          name="checkerboard"
-          placeholder="Enter Number Here"
-          value={boardSize}
-          onChange={(e) => setBoardSize(e.target.value)}
-        />
-        <br />
+            <input
+              type="text"
+              id="checkerboard"
+              name="checkerboard"
+              placeholder="Enter 8 To Play"
+              value={this.state.boardSize}
+              onChange={this.setBoard}
+            />
+          </form>
+          <br />
 
-        {/* PLAYER 1 OPTIONS */}
+          {/* PLAYER 1 OPTIONS */}
+          <form>
+            <div>
+              <label htmlFor="player1">
+                PLAYER 1:
+            </label>
+              {/* RADIO BUTTONS FOR COLOR SELECTORS */}
+              <input
+                type="radio"
+                id="player1"
+                name="player1"
+                value="red"
+                onChange={this.changeColor}
+                checked={this.state.player1 === "red"}
+              />
+              <label htmlFor="player1">Red</label>
+              <input
+                type="radio"
+                id="player1"
+                name="player1"
+                value="black"
+                onChange={this.changeColor}
+                checked={this.state.player1 === "black"}
+              />
+              <label htmlFor="p1Black">Black</label>
+            </div>
+          </form>
 
-        <label action="#" for="player1">
-          PLAYER 1:
-        </label>
-        {/* RADIO BUTTONS FOR COLOR SELECTORS */}
-        <input type="radio" id="red" name="player1-red" value="red" />
-        <label for="player1-red">Red</label>
-        <input type="radio" id="black" name="player2-color" value="black" />
-        <label for="player1-black">Black</label>
 
-        {/* RADIO BUTTONS FOR SHAPE SELECTORS */}
+          {/* PLAYER 2 OPTIONS */}
+          <form >
+            <div>
+              <label htmlFor="player2">
+                PLAYER 2:
+            </label>
+              {/* RADIO BUTTONS FOR COLOR SELECTORS */}
+              <input
+                type="radio"
+                id="player2"
+                name="player2"
+                value="red"
+                onChange={this.changeColor}
+                checked={this.state.player2 === "red"}
+              />
+              <label htmlFor="player2">Red</label>
+              <input
+                type="radio"
+                id="player2"
+                name="player2"
+                value="black"
+                onChange={this.changeColor}
+                checked={this.state.player2 === "black"}
+              />
+              <label htmlFor="p2Black">Black</label>
+            </div>
+          </form>
 
-        <input
-          type="radio"
-          id="player1-circle"
-          name="player1-cirlce"
-          value="circle"
-        />
-        <label for="player1-circle">Circle</label>
-        <input
-          type="radio"
-          id="player1-triangle"
-          name="player1-triangle"
-          value="triangle"
-        />
-        <label for="player2-triangle">Triangle</label>
-        <br />
-
-        {/* PLAYER 2 OPTIONS */}
-
-        <label action="#" for="player1">
-          PLAYER 2:
-        </label>
-        {/* RADIO BUTTONS FOR COLOR SELECTORS */}
-        <input
-          type="radio"
-          id="player1-red"
-          name="player1-pieceColor"
-          value="red"
-        />
-        <label for="player1-pieceColor">Red</label>
-        <input
-          type="radio"
-          id="player2-black"
-          name="player2-pieceColor"
-          value="black"
-        />
-        <label for="player2-pieceColor">Black</label>
-
-        {/* RADIO BUTTONS FOR SHAPE SELECTORS */}
-        <input
-          type="radio"
-          id="player1-circle"
-          name="player1-pieceColor"
-          value="circle"
-        />
-        <label for="player1-shape">Circle</label>
-        <input
-          type="radio"
-          id="player2-triangle"
-          name="player2-shape"
-          value="triangle"
-        />
-        <label for="player2-pieceColor">Triangle</label>
-      </form>
-
-      {/* <input type="submit" value="Submit" /> */}
-
-      <Board size={{ boardSize }} />
-    </div>
-  );
+          <Board size={Number(boardSize)}
+            player1={player1}
+            player2={player2}
+          />
+        </div>
+      </React.Fragment>
+    );
+  };
 }
+
+export default App;

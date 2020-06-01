@@ -1,14 +1,22 @@
 import React from "react";
 
-export default function Piece({ number, size }) {
-  let className = "player ";
-  //fill first 16 cells with red pieces of 8 x 8 board
+export default function Piece({ number, player1, player2 }) {
+
+  let className;
+  let style;
+  /**
+   * Fill first 16 cells and last 16 cells 
+   * with user selected piece color.
+   * Inline styling implemented to dynamically
+   * render selected piece color for players.
+   * */
   if (number > 0 && number < 17) {
-    className += "red";
-  } else if (number > 48 && number < 64) {
-    //fill last 16 cells with pieces pieces 8 x 8 board
-    className += "black";
+    className = "player1";
+    style = player1;
+  } else if (number > 48 && number < 65) {
+    className = "player2";
+    style = player2;
   }
 
-  return <span className={className}></span>;
+  return <span className={className} style={{ backgroundColor: style }}></span>;
 }

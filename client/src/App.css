@@ -31,7 +31,7 @@ label {
 }
 .chess_cell.odd:nth-of-type(2n),
 .chess_cell.even:nth-of-type(2n + 1) {
-  background: black;
+  background: grey
 }
 
 .circle {
@@ -42,10 +42,34 @@ label {
   display: inline-block;
 }
 
-.player1  {
-
+.player1 {
+ /* background-color: red; */
+ border-radius: 50%;
+ border: 3px seashell;
+ height: 50px;
+ line-height: 50px;
+ width: 50px;
+ padding: 11px 0;
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
 }
 
 .player2 {
+ /* background-color: black; */
+ border-radius: 50%;
+ border: 3px seashell;
+ height: 50px;
+ line-height: 50px;
+ width: 50px;
+ padding: 11px 0;
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
+}
 
+form {
+display: block;
+ margin-left: auto;
+ margin-right: auto;
 }
