@@ -1,7 +1,7 @@
 import React from "react";
 import Piece from "./Piece";
 
-export default function Cell({ number, size, player1, player2 }) {
+export default function Cell({ number, size, player1, player2, p1Shape, p2Shape }) {
   /**
    * 1st Conditional statement below will determine
    * whether the first cell in a row will be
@@ -24,6 +24,7 @@ export default function Cell({ number, size, player1, player2 }) {
       <div className={className}>
         <Piece
           player1={player1}
+          p1Shape={p1Shape}
           number={number}
           size={size}
         />
@@ -35,6 +36,7 @@ export default function Cell({ number, size, player1, player2 }) {
       <div className={className}>
         <Piece
           player2={player2}
+          p2Shape={p2Shape}
           number={number}
           size={size}
         />
